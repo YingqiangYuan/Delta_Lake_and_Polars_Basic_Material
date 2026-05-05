@@ -1,1 +1,0 @@
-# learn_delta_lake_and_polars_basic-project
