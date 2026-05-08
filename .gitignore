@@ -4,6 +4,7 @@ docs/source/**/index.md
 .claude/claude-code-message*
 .claude/settings.local.json
 .claude/skills/lesson-smith*
+.claude/skills/learn-this-project-meta*
 .claude/skills/write-agent-skill*
 tmp/
 
