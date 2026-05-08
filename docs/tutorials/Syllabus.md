@@ -4,4 +4,4 @@ This project teaches hands-on data lake engineering using Delta Lake and Polars 
 
 ## 01-Learn-This-Project
 
-Introduction to Delta Lake + Polars on S3. Covers Delta table I/O (overwrite, append, error modes), Polars DataFrame processing (column ops, dedup, joins, PII masking), merge/upsert, time travel, vacuum, schema evolution, and a complete Bronze-to-Silver pipeline. Learners run all example scripts, verify understanding through Quiz at 80%+, and showcase progress on GitHub.
+Introduction to Delta Lake + Polars on S3. Covers Delta table I/O (overwrite, append, error modes), Polars DataFrame processing (column ops, dedup, joins, PII masking), merge/upsert, time travel, vacuum, schema evolution, and a complete Bronze-to-Silver pipeline. Learners use 5 interactive AI skills (absorb, quiz, elevate, interview, demo) to master the material, then showcase their work on GitHub.

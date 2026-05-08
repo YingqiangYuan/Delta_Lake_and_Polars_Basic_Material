@@ -1,42 +1,50 @@
-# Delta Lake + Polars: Complete the POC Deep Dive
+# TICKET: Delta Lake + Polars on S3 — Learning Checklist
 
 ## Objective
 
-Master the fundamentals of Delta Lake and Polars on S3 by running every example script, understanding the underlying concepts, and proving your knowledge through the Quiz.
+Master the fundamentals of Delta Lake and Polars on AWS S3 by running every example, understanding the WHY behind each design choice, and proving your knowledge through quiz and mock interview.
 
-Read the tutorial: [Delta Lake + Polars Hands-On Introduction](https://github.com/MacHu-0414/learn_delta_lake_and_polars_basic-project/tree/01-Learn-This-Project)
-
-## Actionable Items
-
-1. **Set up your environment** — Run `mise install && mise run inst`, configure `.env` with your AWS profile
-2. **Run every script in `examples/`** — Execute each one individually, observe the output, and check S3 after each run to see what changed
-3. **Read each module's README** — Every subfolder in `examples/` has a README.md explaining the concepts for that section
-4. **Use `/learn-this-project` Guided Tour** — Let the AI walk you through the project structure and explain key patterns
-5. **Take the Quiz** — Use `/learn-this-project` Quiz mode to test your understanding
-6. **Iterate until 80%+** — For any question you can't answer clearly in plain language, go back to the relevant script and study it again
-7. **Showcase on GitHub** — Create your own public repo with incremental commits (see README for details)
-
-**Estimated time:** 4-8 hours (spread across multiple sessions)
+Read [Tutorial](https://github.com/easyscale-academy/learn_delta_lake_and_polars_basic-project/tree/01-Learn-This-Project/)
 
 ## Checklist
 
-- [ ] **Environment running** — `mise install && mise run inst` completes without errors, `.env` configured
-- [ ] **All scripts executed** — Every script in `examples/00` through `examples/06` has been run successfully
-- [ ] **S3 inspection done** — You've logged into AWS Console and observed the Delta table structure (Parquet files + `_delta_log/`)
-- [ ] **Guided Tour completed** — You've gone through the full `/learn-this-project` Guided Tour at least once
-- [ ] **Quiz passed at 80%+** — You can answer 80% of Quiz questions in plain English, as if explaining in a job interview
-- [ ] **GitHub showcase created** — Public repo with 15-20 incremental commits, only `README.rst` as README, no tutorial files
+### Setup
+- [ ] Clone the repo and switch to the `01-Learn-This-Project` branch
+- [ ] Run `mise install && mise run inst` to set up the environment
+- [ ] Copy `.env.example` to `.env` and configure your AWS profile
+- [ ] Verify `python examples/00-minimal-poc/s01_minimal_poc.py` runs successfully
 
-## Submission & Verification
+### Absorb (learn the content)
+- [ ] Run `/learn-this-project-absorb`, complete the full walkthrough
+- [ ] Run each of the 16 example scripts yourself, observe output and check S3
+- [ ] Understand why Delta Lake uses a transaction log (not just raw Parquet)
+- [ ] Understand the difference between overwrite, append, and merge/upsert
+- [ ] Understand the Bronze-to-Silver ETL pattern and why PII masking happens at the Silver layer
 
-When you're done, run `/teach-check` to verify your work against the checklist. Say "ship it" when complete to generate RESULT.md, then share the RESULT.md file GitHub link with your instructor.
+### Quiz (verify understanding)
+- [ ] Run `/learn-this-project-quiz`, complete at least one full round
+- [ ] Score 80%+ on a 10-question random round
+- [ ] Review and re-study any topics where you scored poorly
 
-## Grading Rubric
+### Elevate (see what's beyond)
+- [ ] Run `/learn-this-project-elevate`, explore at least 1-2 upgrade areas
+- [ ] Note down which directions interest you (CDC, data quality, concurrency, etc.)
 
-> **For instructors and /teach-check assistant** — Students may skip this section.
+### Interview (pressure-test yourself)
+- [ ] Run `/learn-this-project-interview`, complete a full mock session
+- [ ] Review the debrief, note which questions need more prep
 
-- **Environment:** Verify `.env` exists and `mise run inst` succeeds (check `uv.lock` or `.venv/` presence)
-- **Script execution:** Ask the student to explain what any randomly chosen script does — they should be able to describe input, operation, and output without re-reading the code
-- **Conceptual understanding:** The student can explain in plain language: (1) why Delta Lake uses a transaction log, (2) the difference between overwrite and append modes, (3) what merge/upsert does and when you'd use it, (4) what time travel enables, (5) why vacuum is necessary
-- **Quiz benchmark:** Run 5 random Quiz questions — student should answer at least 4 clearly in conversational English, demonstrating understanding of "why" not just "what"
-- **GitHub showcase:** Verify the public repo exists, has 15+ commits with progressive additions, contains no tutorial files (README.md, README-cn.md, TICKET.md), and only uses README.rst as the project description
+### Demo (learn to present)
+- [ ] Run `/learn-this-project-demo`, rehearse at least the 5-minute version
+- [ ] Walk through the "do NOT show" checklist
+
+### Mastery Gate
+- [ ] You can explain **at least 70%** of the knowledge points from the quiz bank
+- [ ] You can answer interview-style questions with a concept and direction (even if not perfect)
+- [ ] You have a clear list of "what I'd study next" from the elevate session
+
+### Show Your Work
+- [ ] Create your own public repo (renamed, no "learn" prefix)
+- [ ] Commit incrementally (15-20+ commits)
+- [ ] Delete all teaching artifacts (`docs/learn-this-project/`, `.claude/skills/learn-this-project-*/`, `README.md`, `README-cn.md`, `TICKET.md`)
+- [ ] Write your own README
