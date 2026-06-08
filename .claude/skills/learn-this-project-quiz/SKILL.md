@@ -2,7 +2,7 @@
 name: learn-this-project-quiz
 description: Granular quiz on the delta_lake_and_polars_basic repo — small, fact-and-knowhow style questions that calibrate whether the user has truly internalized the project. Use when the user wants to test themselves, says "quiz me on this project", "test my knowledge", "let's drill", or just finished an absorb session and wants to verify retention.
 allowed-tools: Read Grep
-argument-hint: [random N | module <name> | knowhow | progressive]
+argument-hint: [random N | module <name> | knowhow | progressive | generate N about <topic>]
 ---
 
 # learn-this-project-quiz
@@ -21,8 +21,6 @@ A correct factual answer in one sentence is **not** a full pass here — the qui
 
 - Primary: `docs/learn-this-project/04-quiz-bank.md` — pre-generated discussion-style Q&A items with IDs, tags, difficulty, and source references. The doc's preamble describes the question-design principle; honor it when grading.
 - Cross-reference: `docs/learn-this-project/01-knowhow-inventory.md` — open this when the user gets an item wrong and wants to see the source, OR when generating new questions in open-ended mode.
-- User-supplied reference (added at meta-skill bootstrap): `examples/README.md` — Index of all POC example scripts — documents what each numbered folder demonstrates and the design principles (idempotent, no real data, run individually). Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
-- User-supplied reference (added at meta-skill bootstrap): `pyproject.toml` — Core dependency declarations: deltalake, polars, boto3, s3pathlib, boto-session-manager. Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
 
 ## Open the session this way
 
@@ -31,7 +29,7 @@ A correct factual answer in one sentence is **not** a full pass here — the qui
 
    > Pick a quiz mode:
    > - **Bank mode** (default): `random 10` (or any N), `module <name>` to focus on one component, `knowhow` for "why" questions only, or `progressive` for easy → hard. Uses the pre-written bank.
-   > - **Open-ended mode**: tell me the topic and how many — e.g. `generate 5 harder questions about bound parameters` — and I'll generate fresh discussion-style questions in the same format, drawing on the project's docs and code.
+   > - **Open-ended mode**: tell me the topic and how many — e.g. `generate 5 harder questions about the merge predicate aliases` — and I'll generate fresh discussion-style questions in the same format, drawing on the project's docs and code.
    >
    > Say `go` to take it.
 
@@ -69,8 +67,9 @@ After the chosen number of questions:
 **Bank mode** (the default — picks from `04-quiz-bank.md`):
 
 - `random N` — pick N items uniformly at random from the bank.
-- `module <name>` — filter items whose source reference points to that module / component (match against source field).
-- `knowhow` — filter by tag `knowhow` only.
+- `module <name>` — filter items whose source reference points to that module / component (match against source field). For this project, useful module names: `one`, `polars-etl`, `delta-read-write`, `merge-upsert`, `time-travel`, `vacuum-schema`, `full-etl`, `runbook`.
+- `knowhow` — filter by tag `knowhow` only (the highest-value subset).
+- `series` — filter by tag `series` (cross-style and cross-module comparisons; the hardest).
 - `progressive` — start with easy, escalate. After 3 correct in a row, bump difficulty. After 2 wrong in a row, drop difficulty.
 
 If the bank has fewer items than N, run all of them and tell the user.
@@ -94,3 +93,4 @@ If the bank has fewer items than N, run all of them and tell the user.
 - Persistent gaps in a topic → `/learn-this-project-absorb module <name>`.
 - Strong on facts, want to test reasoning → `/learn-this-project-interview`.
 - Wants to learn upgrades, not facts → `/learn-this-project-elevate`.
+- Wants to publish a clean version → `/learn-this-project-publish`.

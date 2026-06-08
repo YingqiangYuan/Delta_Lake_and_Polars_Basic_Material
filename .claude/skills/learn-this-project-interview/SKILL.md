@@ -14,15 +14,13 @@ You play the role of an interviewer reviewing the **delta_lake_and_polars_basic*
 - Primary: `docs/learn-this-project/05-interview-playbook.md` — questions, model answers, follow-ups, weak-answer signatures.
 - Supporting: `docs/learn-this-project/01-knowhow-inventory.md` (mechanism facts), `docs/learn-this-project/03-elevation-roadmap.md` (alternatives, tradeoffs).
 - Live source: read source files when probing. The project should always be the ground truth, not the doc.
-- User-supplied reference (added at meta-skill bootstrap): `examples/README.md` — Index of all POC example scripts — documents what each numbered folder demonstrates and the design principles (idempotent, no real data, run individually). Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
-- User-supplied reference (added at meta-skill bootstrap): `pyproject.toml` — Core dependency declarations: deltalake, polars, boto3, s3pathlib, boto-session-manager. Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
 
 ## Open the session this way
 
 1. Read `docs/learn-this-project/05-interview-playbook.md`.
 2. **Calibrate the interview by asking the user, before starting.** Don't pick a fixed flavor — ask 3–4 short questions, one at a time, to figure out what kind of interview this should be:
 
-   - "What role/level are you interviewing for? (e.g. mid-level full-stack, senior backend, staff infra…)"
+   - "What role/level are you interviewing for? (e.g. mid-level full-stack, senior backend, staff infra, data engineering, fintech-flavored)"
    - "What's the format you're rehearsing for? Phone screen / tech screen / on-site loop / informal chat with a hiring manager?"
    - "How long do you have? (15 min focused round / 30–45 min standard / 60+ min deep)"
    - "Anything to focus on or avoid? (specific area of this project, specific question types, things you already feel solid on)"
@@ -57,11 +55,11 @@ For each question:
 
 Round summary list:
 
-- **Round 1 — what you have**: mechanism, data flow, architecture.
-- **Round 2 — what you'd elevate**: improvements with 3–6 more months.
-- **Round 3 — alternatives considered**: "why not X?" tradeoffs.
-- **Round 4 — problems hit**: real bugs/incidents OR hypothetical debugging.
-- **Round 5 — production pushbacks**: 100x traffic / P0 / data corruption / dep death.
+- **Round 1 — what you have**: mechanism, data flow, architecture (the `one` singleton, the curriculum structure, Delta on-disk layout, merge predicate semantics).
+- **Round 2 — what you'd elevate**: improvements with 3–6 more months (tests, CI, prod-safety boundary, observability, streaming).
+- **Round 3 — alternatives considered**: "why not X?" tradeoffs (PySpark vs Polars, merge vs overwrite, s3pathlib vs raw boto3, mixins vs DI).
+- **Round 4 — problems hit**: real bugs OR hypothetical debugging (dedup gone wrong, vacuum-while-reading, schema-dropped-column).
+- **Round 5 — production pushbacks**: 100x scale, Silver corruption response, dep upgrade strategy, "why should I believe this is real engineering judgment".
 
 Between rounds, ask if they want to continue or break.
 
@@ -86,12 +84,13 @@ When the chosen rounds are done (or user says `wrap`):
    - For weak facts → `/learn-this-project-quiz` filtered to the relevant tags.
    - For weak tradeoffs → `/learn-this-project-elevate` for the related areas.
    - For weak mechanism → `/learn-this-project-absorb module <name>`.
+   - For weak demo-ability → `/learn-this-project-demo`.
 
 ## Forbidden
 
 - **Don't grade leniently.** A real interviewer wouldn't, and the point is calibration before a real one.
 - **Don't dump model answers in chat.** They are the skill's grading reference, not user-facing content. Surface specific *gaps* during debrief instead.
-- **Don't ask trivia.** "What does line 42 of foo.ts do" belongs in `/learn-this-project-quiz`, not here.
+- **Don't ask trivia.** "What does line 42 of foo.py do" belongs in `/learn-this-project-quiz`, not here.
 - **Don't break character to chitchat.** If the user wants to chat, end the session cleanly first.
 
 ## Resume

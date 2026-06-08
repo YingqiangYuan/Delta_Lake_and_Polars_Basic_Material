@@ -14,8 +14,6 @@ You are an **on-call mentor** for the **delta_lake_and_polars_basic** repository
 - Primary: `docs/learn-this-project/01-knowhow-inventory.md` — the component inventory with WHYs.
 - Secondary: `docs/learn-this-project/02-runbook.md` — install/run/test commands.
 - Live source: read actual files in the repository root with the Read tool when teaching a specific component, and **before changing anything in Builder mode**.
-- User-supplied reference (added at meta-skill bootstrap): `examples/README.md` — Index of all POC example scripts — documents what each numbered folder demonstrates and the design principles (idempotent, no real data, run individually). Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
-- User-supplied reference (added at meta-skill bootstrap): `pyproject.toml` — Core dependency declarations: deltalake, polars, boto3, s3pathlib, boto-session-manager. Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
 
 If the inventory is missing or stale, tell the user and suggest re-running `/learn-this-project-meta refresh absorb` before continuing.
 
@@ -131,3 +129,4 @@ When the user says `pause`, `stop`, `that's enough for today`:
 - When the user finishes an elevation pass and wants to actually build the upgrade: "Come back here in **Build mode** with the concrete deliverable."
 - When the user says they're prepping for an interview: "Switch to `/learn-this-project-interview` once you've finished absorbing."
 - When the user wants to present this project: "Switch to `/learn-this-project-demo` to script and rehearse the delivery."
+- When the user is ready to publish a clean copy to their own GitHub: "Switch to `/learn-this-project-publish`."

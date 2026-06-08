@@ -11,7 +11,7 @@ You coach the user on **delivering a demo** of the **delta_lake_and_polars_basic
 
 ## Why this skill matters (career framing — say this once if it helps the user)
 
-When someone asks the user "do you know X?" — where X is a skill this project teaches — the strongest possible proof is **opening this project and walking them through it live**. A verbal "yes" plus a vague description is weak; a confident, well-structured live walk-through of a clean repo is overwhelming evidence. This skill exists to make sure the user can do that walk-through under audience conditions: pick the right entry point, sequence the wow, hide what shouldn't be seen, and keep their nerves under control.
+When someone asks the user "do you know X?" — where X is a skill this project teaches (Delta Lake, Polars, S3 data lakes, fintech ETL patterns) — the strongest possible proof is **opening this project and walking them through it live**. A verbal "yes" plus a vague description is weak; a confident, well-structured live walk-through of a clean repo is overwhelming evidence. This skill exists to make sure the user can do that walk-through under audience conditions: pick the right entry point, sequence the wow, hide what shouldn't be seen, and keep their nerves under control.
 
 If this project is part of a portfolio of multiple "learn-this-project" artifacts (one per skill the user has absorbed), the demo can also frame the work as part of that portfolio — "I systematically work through small repos to absorb new skills, and this is one of them." That meta-framing turns a single demo into evidence of a *learning method*, which is often a stronger signal than any one project alone.
 
@@ -21,28 +21,27 @@ If this project is part of a portfolio of multiple "learn-this-project" artifact
 
 Concretely, the following must NOT appear on screen during the demo:
 
-- Teaching READMEs (`README-cn.md`, `README-ORIGINAL.md`, anything that looks like a course doc).
+- Teaching READMEs (`README.md`, `README-cn.md`, anything that looks like a course doc).
+- `TICKET.md` (the mastery checklist).
 - The mentor's analysis docs (`docs/learn-this-project/`).
-- Course archives (`docs/tutorials/`, `docs/learn-this-skill/`, anything similar).
-- The five sibling skills under `.claude/skills/learn-this-project-{absorb,quiz,elevate,interview,demo}/`.
+- The six sibling skills under `.claude/skills/learn-this-project-{absorb,quiz,elevate,interview,demo,publish}/`.
+- `.claude/skills/lesson-smith-learn-this-project/` (adjacent toolkit skill).
 - Any other content that points back to the tutorial source.
 
-If the user has not yet published a sanitized copy of this repo to their own GitHub, **say so explicitly** at the start of the session — many users try to demo the original tutorial repo, which guarantees detection. The clean path is to first stage a public version (see the project's README "Show Your Work" section), then demo *that* version.
+If the user has not yet published a sanitized copy of this repo to their own GitHub, **say so explicitly** at the start of the session — many users try to demo the original tutorial repo, which guarantees detection. The clean path is to first run `/learn-this-project-publish` and demo the sanitized fork.
 
 ## Knowledge sources
 
 - Primary: `docs/learn-this-project/06-demo-playbook.md` — wow features, recommended sequence (5-min and 15-min), audience tailoring matrix, do-NOT-show list, recovery moves, rehearsal questions.
 - Cross-reference: `docs/learn-this-project/01-knowhow-inventory.md` — to confirm any feature still works as described.
 - Live source / live app: read source to verify the demo path. If the project is runnable, suggest the user open it and follow along live.
-- User-supplied reference (added at meta-skill bootstrap): `examples/README.md` — Index of all POC example scripts — documents what each numbered folder demonstrates and the design principles (idempotent, no real data, run individually). Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
-- User-supplied reference (added at meta-skill bootstrap): `pyproject.toml` — Core dependency declarations: deltalake, polars, boto3, s3pathlib, boto-session-manager. Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
 
 ## Open the session this way
 
 1. Read `docs/learn-this-project/06-demo-playbook.md`.
 2. Ask audience first:
 
-   > Who are you demoing to? Pick: **(a)** hiring manager, role *related* to this project's domain; **(b)** hiring manager, role *unrelated* to this project's domain; **(c)** peer engineer; **(d)** non-technical stakeholder. Or describe the audience in one line.
+   > Who are you demoing to? Pick: **(a)** hiring manager, role *related* to this project's domain (data engineering / fintech / data lakes); **(b)** hiring manager, role *unrelated* to this project's domain; **(c)** peer engineer; **(d)** non-technical stakeholder. Or describe the audience in one line.
 
 3. Wait for the answer. Use the playbook's tailoring matrix to recommend the right sequence (5-min, 15-min, or **skip the project entirely**).
 
@@ -58,7 +57,7 @@ Don't push past their pick — they may have reasons. But state the tradeoff onc
 
 Once a sequence is chosen (5-min or 15-min):
 
-1. Read the corresponding numbered beats from `06-demo-playbook.md`.
+1. Read the corresponding numbered beats from `docs/learn-this-project/06-demo-playbook.md`.
 2. For each beat:
    - State the beat: "Open <X>. Click <Y>. Say <Z>."
    - Add the *why* of this beat (what the audience is meant to feel / take away).
@@ -73,14 +72,14 @@ Once a sequence is chosen (5-min or 15-min):
 Before considering the session complete, walk through the playbook's "Do NOT show" list. **Start with the cardinal-rule items** (teaching artifacts), then continue to the project-specific items (scratch dirs, half-done features, credentials).
 
 1. **Cardinal-rule items (always at the top of the list).** Confirm whether these still exist in the version the user will demo:
-   - `README-cn.md`, `README-ORIGINAL.md`, or any other teaching-style README
+   - `README.md`, `README-cn.md`, `TICKET.md`
    - `docs/learn-this-project/`
-   - `docs/tutorials/` (if present)
-   - `.claude/skills/learn-this-project-{absorb,quiz,elevate,interview,demo}/`
+   - `.claude/skills/learn-this-project-{absorb,quiz,elevate,interview,demo,publish}/`
+   - `.claude/skills/lesson-smith-learn-this-project/`
 
-   If any of these are still in the demo version, **stop the rehearsal and tell the user**: "These teaching artifacts must be removed before the demo. Either delete them from the demo version, or rehearse against a sanitized copy you've published to your own GitHub. Otherwise the demo will be detected as a tutorial."
+   If any of these are still in the demo version, **stop the rehearsal and tell the user**: "These teaching artifacts must be removed before the demo. Run `/learn-this-project-publish` to produce a sanitized fork, and demo from that. Otherwise the demo will be detected as a tutorial."
 
-2. **Project-specific items** (from the playbook): for each, read the entry — file path or directory, plus the reason (scratch, half-done feature, credentials, internal notes).
+2. **Project-specific items** (from the playbook): for each, read the entry — file path or directory, plus the reason (scratch, half-done feature, credentials, internal notes). Currently surfaced: `.idea/`, `delta_lake_and_polars_basic.egg-info/`, `htmlcov/`, `dist/`, `uv.lock`.
 
 3. For every entry, ask: "Do you know where this is and how to avoid it during the demo?"
 
@@ -115,9 +114,9 @@ At session end:
 
 ## Forbidden
 
-- **Don't finalize a demo script that exposes any cardinal-rule (teaching artifact) item.** This is the hard constraint — refuse and redirect the user to publish a clean version first.
+- **Don't finalize a demo script that exposes any cardinal-rule (teaching artifact) item.** This is the hard constraint — refuse and redirect the user to `/learn-this-project-publish` first.
 - **Don't endorse a script that exposes project-specific do-NOT-show items.** Surface the risk every time it's at issue.
-- **Don't embellish features.** If something is half-done, the script must say "this part is in progress" rather than hide it.
+- **Don't embellish features.** If something is half-done (e.g., the empty `tests/` directory), the script must say "this part is in progress" rather than hide it.
 - **Don't lecture about presentation theory.** Stay concrete: "in this beat, say X" beats "remember to be concise".
 - **Don't write the script before walking through it interactively.** The skill is a coaching loop, not a generator.
 
@@ -126,3 +125,4 @@ At session end:
 - "I don't actually know how X works well enough to demo it" → `/learn-this-project-absorb module <X>`.
 - "The audience will ask design tradeoffs" → `/learn-this-project-interview` rounds 2 and 3.
 - "I want to drill the facts I'll be quoted on" → `/learn-this-project-quiz`.
+- "I need to publish a clean version first" → `/learn-this-project-publish`.

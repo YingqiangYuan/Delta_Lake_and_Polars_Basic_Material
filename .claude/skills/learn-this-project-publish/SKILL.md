@@ -18,8 +18,6 @@ This skill operates on local files. It deletes teaching artifacts, renames thing
 - Primary: `docs/learn-this-project/07-publish-checklist.md` — the project-specific cardinal-rule deletes, borderline list, commit-plan template, README co-write outline, and hostile-scan rules.
 - Cross-reference: `docs/learn-this-project/06-demo-playbook.md` § "Do NOT show" — overlap with the cardinal-rule artifact list; treat them as consistent.
 - Live source: read actual project files when generating the commit plan and when scanning in Audit mode. The filesystem is ground truth — the doc may be stale.
-- User-supplied reference (added at meta-skill bootstrap): `examples/README.md` — Index of all POC example scripts — documents what each numbered folder demonstrates and the design principles (idempotent, no real data, run individually). Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
-- User-supplied reference (added at meta-skill bootstrap): `pyproject.toml` — Core dependency declarations: deltalake, polars, boto3, s3pathlib, boto-session-manager. Read this alongside the primary doc; treat it as authoritative when it conflicts with the generated docs, and tell the user when such a conflict surfaces.
 
 If `07-publish-checklist.md` is missing or looks stale (e.g., it references files that don't exist anymore), tell the user and suggest re-running `/learn-this-project-meta refresh publish` before continuing.
 
@@ -39,7 +37,7 @@ Detect the mode from the argument or the user's opening message. If unclear, def
 
 Before doing anything else, ask the user for two things, **one at a time**:
 
-1. **"What's the name of the new public repo you'll publish this to?"** Typical pattern: `<firstname>-<lastname>-<topic>-poc`. If they haven't decided, suggest 2–3 candidates based on the project name.
+1. **"What's the name of the new public repo you'll publish this to?"** Typical pattern: `<firstname>-<lastname>-<topic>-poc`. If they haven't decided, suggest 2–3 candidates based on the project name (e.g., `<firstname>-delta-lake-polars-poc`, `<firstname>-fintech-data-lake-poc`).
 2. **"What's your name (or the byline you want)?"** This goes into commit-message tone and optionally into the README byline.
 
 Store both. You'll use the repo name in the commit cheat-sheet's header and the student name when drafting first-person commit messages.
@@ -48,24 +46,31 @@ After intake, summarize: "Got it — `<repo name>` by `<student name>`. Let me s
 
 ### Step 2 — Delete cardinal-rule teaching artifacts
 
-1. Read `07-publish-checklist.md` § 1 (cardinal-rule deletes).
+1. Read `docs/learn-this-project/07-publish-checklist.md` § 1 (cardinal-rule deletes).
 2. For each entry, verify it exists in the current repo (use Read / `ls` / Glob).
 3. Print a **dry-run preview** as one combined `ls`-style block, showing every file/directory that would be deleted. Example:
 
    ```
    The following will be deleted:
 
+     README.md
      README-cn.md
-     README-ORIGINAL.md
+     TICKET.md
      docs/learn-this-project/
        ├── 01-knowhow-inventory.md
        ├── 02-runbook.md
-       └── ...
+       ├── 03-elevation-roadmap.md
+       ├── 04-quiz-bank.md
+       ├── 05-interview-playbook.md
+       ├── 06-demo-playbook.md
+       └── 07-publish-checklist.md
      .claude/skills/learn-this-project-absorb/
-     .claude/skills/learn-this-project-quiz/
      .claude/skills/learn-this-project-elevate/
+     .claude/skills/learn-this-project-quiz/
      .claude/skills/learn-this-project-interview/
      .claude/skills/learn-this-project-demo/
+     .claude/skills/learn-this-project-publish/
+     .claude/skills/lesson-smith-learn-this-project/
 
    .claude/skills/learn-this-project-meta/ will be KEPT (portfolio bonus).
    ```
@@ -74,58 +79,52 @@ After intake, summarize: "Got it — `<repo name>` by `<student name>`. Let me s
 
 ### Step 3 — Borderline review
 
-1. Read `07-publish-checklist.md` § 2 (project-specific borderline).
-2. For each entry, ask the user one focused question. Example: "`tmp/notes.md` — looks like local scratch notes. Keep or delete?"
+1. Read `docs/learn-this-project/07-publish-checklist.md` § 2 (project-specific borderline).
+2. For each entry, ask the user one focused question. Example: "`delta_lake_and_polars_basic.egg-info/` — build artifact from `uv sync`. Keep or delete?"
 3. On `delete`, run `rm`. On `keep`, leave it but flag for Audit's attention.
 4. If the borderline list is `_(none found in this repo)_`, skip this step.
 
 ### Step 4 — Rename / string-replace (if applicable)
 
-1. Grep the repo for the old project name (use the project's name from `pyproject.toml` / `package.json` / etc.).
-2. For each hit, present a diff: "I'd change `<old>` to `<new repo name>` at `<file>:<line>`. OK?"
-3. On consent, use Edit. Skip files where the rename doesn't make sense (e.g., changelog entries that should preserve history).
-4. Also consider: if the package directory itself is named after the old project (`learn_this_project/` → maybe rename to match the new repo), confirm with user before `mv`.
+1. Grep the repo for the old project name (`delta_lake_and_polars_basic`). Likely hits in `pyproject.toml`, `mise.toml`, package directory name, `README.rst`.
+2. For each hit, present a diff: "I'd change `delta_lake_and_polars_basic` to `<new repo name's package form>` at `<file>:<line>`. OK?"
+3. On consent, use Edit. Skip files where the rename doesn't make sense (e.g., changelog entries that should preserve history — there are none in this repo currently).
+4. **Important**: if the package directory itself is named `delta_lake_and_polars_basic/`, ask explicitly: "Rename the package directory too? This is a bigger change because every import path will need updating." Most users will keep the package name even when the repo name differs.
 
 ### Step 5 — Generate commit cheat-sheet
 
-1. Read `07-publish-checklist.md` § 3 (commit plan template). Cross-reference against the actual surviving files in the repo after Steps 2–4.
-2. Build the commit plan — 10–15+ commits, dependency-ordered (least-dependent first). Typical shape:
-   - C1: root config (`mise.toml`, `pyproject.toml`, `.gitignore`)
-   - C2: empty package skeleton
-   - C3: shared utilities
-   - C4: on-ramp prose (e.g., `examples/README.md`)
-   - C5–C(N–1): individual source files, one per commit
-   - CN: hand-written `README.md`
+1. Read `docs/learn-this-project/07-publish-checklist.md` § 3 (commit plan template). Cross-reference against the actual surviving files in the repo after Steps 2–4.
+2. Build the commit plan — 20 commits per the spec, dependency-ordered (least-dependent first). The plan in §3 lists them; adjust if Steps 3–4 changed which files survive.
 3. **Ask the user before writing**: "Want me to write the commit cheat-sheet to `tmp/publish-commit-plan.md`? You'll copy-paste from it; I won't run any `git` commands."
-4. On yes, write the file. Format as a numbered table:
+4. On yes, write the file. Format as a numbered list of commits, each with the exact `git add` and `git commit -m "..."` commands so the user can copy-paste:
 
    ```markdown
    # Commit plan for <new repo name>
 
    Run these in order. The skill does NOT run git — you do.
 
-   ## C1 — Add mise + uv toolchain setup
-   Files: mise.toml, pyproject.toml, .gitignore
-   Rationale: root configuration; nothing depends on it but everything else builds on it.
+   ## C1 — Set up gitignore and example env file
+   Files: .gitignore, .env.example
+   Rationale: foundation; nothing depends on these but every later commit assumes them.
    ```bash
-   git add mise.toml pyproject.toml .gitignore
-   git commit -m "Add mise + uv toolchain setup"
+   git add .gitignore .env.example
+   git commit -m "Set up gitignore and example env file"
    ```
 
-   ## C2 — Add empty package skeleton
+   ## C2 — Add mise + uv toolchain and Python package config
    ...
    ```
 
-   Include the exact `git add` and `git commit -m "..."` commands so the user can copy-paste. Suggest commit messages in **first-person past tense** ("Add ...", "Wire up ...", "Document ...") — not "chore:" or imperative.
+   Suggest commit messages in **first-person past tense** ("Add ...", "Wire up ...", "Document ...") — not "chore:" or imperative.
 
 ### Step 6 — README co-write (English, D-mode — co-write)
 
-1. Read `07-publish-checklist.md` § 4 (README outline + question prompts).
-2. For each section in order (typically: Project description → Install & run → What I learned → What's next):
+1. Read `docs/learn-this-project/07-publish-checklist.md` § 4 (README outline + question prompts).
+2. For each section in order (Project description → Install & run → What it teaches → What I learned → What I'd do next):
    - Print the section name and goal.
    - Ask the user the 2–4 prompts **one at a time**. Don't stack questions.
    - Listen to the user's answers. Take their actual words — don't paraphrase into your own voice yet.
-   - Draft the section in ~50–120 words. The voice must reflect the user's answers — use their phrasing where you can, expand into complete sentences where they were terse, but **do not invent insight they didn't supply**.
+   - Draft the section in the target word count. The voice must reflect the user's answers — use their phrasing where you can, expand into complete sentences where they were terse, but **do not invent insight they didn't supply**.
    - Print the draft. Ask: "Does this sound like you? Want to edit any line, or move on?"
    - On `edit`: take their edits as ground truth. On `move on`: lock that section.
 3. After all sections are locked, assemble the full README in this order: title (the new repo name as `# <Title Case>`) → sections in the order written → optional byline at the bottom.
@@ -159,15 +158,15 @@ Assume the reader is a hostile interviewer scanning the repo with the question "
 
 ### Audit flow
 
-1. Read `07-publish-checklist.md` § 5 (hostile-scan rules).
+1. Read `docs/learn-this-project/07-publish-checklist.md` § 5 (hostile-scan rules).
 2. Run each rule category against the current repo:
-   - **File-pattern flags**: Glob for the patterns. Report exact paths.
-   - **README phrase flags**: Read `README.md` (and any other `*.md` at the repo root). Grep for the phrase set. Report exact lines.
-   - **Commit-message phrase flags**: `git log --all --oneline` then `git log --all --format="%s%n%b"`. Grep for the same phrase set in subjects and bodies.
-   - **Git ref flags**: `git tag --list` and `git branch --all`. Match against the suspicious-name patterns.
-   - **Residual directory flags**: Glob `.claude/skills/learn-this-project-*` and confirm only `learn-this-project-meta` survives (if at all).
-   - **Hygiene flags**: Glob for `.idea/`, `__pycache__/`, `.venv/`, `*.egg-info/`, `.DS_Store`.
-   - **Suspicious symmetry flags**: heuristic — look for identical comment banners across multiple files, identical docstring shapes, or other "obviously templated" patterns.
+   - **File-pattern flags** (§5a): Glob for the patterns. Report exact paths.
+   - **README phrase flags** (§5b): Read `README.md` and `README.rst` at repo root. Grep for the phrase set. Report exact lines.
+   - **Commit-message phrase flags** (§5c): `git log --all --oneline` then `git log --all --format="%s%n%b"`. Grep for the same phrase set in subjects and bodies.
+   - **Git ref flags** (§5d): `git tag --list` and `git branch --all`. Match against the suspicious-name patterns.
+   - **Residual directory flags** (§5e): Glob `.claude/skills/learn-this-project-*` and confirm only `learn-this-project-meta` survives (if at all). Glob `docs/learn-this-project/` and `docs/learn-*/`. Check for `tmp/publish-commit-plan.md` (shouldn't ship).
+   - **Hygiene flags** (§5f): Glob for `.idea/`, `__pycache__/`, `.venv/`, `*.egg-info/`, `.DS_Store`, `htmlcov/`, `dist/`.
+   - **Suspicious symmetry flags** (§5g): heuristic — look for identical comment banners across multiple files, identical docstring shapes, or other "obviously templated" patterns.
 3. Group findings by severity:
 
    ```
@@ -202,7 +201,7 @@ When the user invokes with `resume`, infer the last completed step:
 
 - `tmp/publish-commit-plan.md` exists → Steps 1–5 done, ask if README co-write is next.
 - Teaching artifacts still present → Step 2 not done, restart at Step 2.
-- `README.md` looks like the teaching version (long, with "this course" or similar) → Step 6 not done.
+- `README.md` looks like the teaching version (contains "Show Your Work" or "learn-this-project") → Step 6 not done.
 - Otherwise → ask the user where they stopped.
 
 ## Forbidden behaviors
