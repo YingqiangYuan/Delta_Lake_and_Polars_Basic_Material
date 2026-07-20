@@ -9,12 +9,12 @@ Absorb the core patterns of a Spark-free, Lambda-shaped data lake on S3 — Delt
 ## Checklist
 
 ### Setup
-- [ ] Clone the repo and switch to the `01-Learn-This-Project` branch
-- [ ] `mise install` (installs Python 3.12 + uv + claude + pandoc)
-- [ ] `mise run venv-create && mise run inst`
-- [ ] `cp .env.example .env` and set `AWS_PROFILE="<your-profile>"`
-- [ ] Smoke-test: `python -c "from delta_lake_and_polars_basic.one.api import one; print(one.s3_bucket)"` prints a bucket name
-- [ ] Confirm your AWS profile has S3 read/write on the bucket matching `{account_alias}-{region}-data`
+- [X] Clone the repo and switch to the `01-Learn-This-Project` branch
+- [X] `mise install` (installs Python 3.12 + uv + claude + pandoc)
+- [X] `mise run venv-create && mise run inst`
+- [X] `cp .env.example .env` and set `AWS_PROFILE="<your-profile>"`
+- [X] Smoke-test: `python -c "from delta_lake_and_polars_basic.one.api import one; print(one.s3_bucket)"` prints a bucket name
+- [X] Confirm your AWS profile has S3 read/write on the bucket matching `{account_alias}-{region}-data`
 
 ### Absorb (learn the content)
 - [ ] Run `/learn-this-project-absorb` in **Orient mode** for the high-level map and the `files to READ` vs `files to RUN/DO` lists
