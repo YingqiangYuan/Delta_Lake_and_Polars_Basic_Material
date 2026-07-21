@@ -17,14 +17,14 @@ Absorb the core patterns of a Spark-free, Lambda-shaped data lake on S3 — Delt
 - [X] Confirm your AWS profile has S3 read/write on the bucket matching `{account_alias}-{region}-data`
 
 ### Absorb (learn the content)
-- [ ] Run `/learn-this-project-absorb` in **Orient mode** for the high-level map and the `files to READ` vs `files to RUN/DO` lists
-- [ ] Run every script on the run-list yourself, in the runbook's recommended order — `02-polars-etl/*` first (no S3), then `00-minimal-poc`, then `01 → 03 → 04 → 05 → 06`
-- [ ] Watch `examples/04-time-travel/s02_history.py` output until the Delta `_delta_log/` model clicks
-- [ ] Run `examples/06-full-etl/s03_incremental.py` end to end and trace how it composes work from modules `01`, `02`, `03`, and `04`
-- [ ] Come back to `/learn-this-project-absorb` in **Context-dive mode** whenever a specific spot needs unpacking (e.g. the merge predicate aliasing, the `polars_storage_options` frozen-credentials trick, the mixin composition in `one/one_01_main.py`)
-- [ ] Be able to explain WHY `02-polars-etl/` deliberately doesn't touch S3
-- [ ] Be able to explain WHY every script begins with `s3dir_example.delete(bsm=bsm)`
-- [ ] Be able to explain WHY `AWS_S3_ALLOW_UNSAFE_RENAME="true"` is set in `one/one_03_boto_ses.py` and when it would be wrong
+- [X] Run `/learn-this-project-absorb` in **Orient mode** for the high-level map and the `files to READ` vs `files to RUN/DO` lists
+- [X] Run every script on the run-list yourself, in the runbook's recommended order — `02-polars-etl/*` first (no S3), then `00-minimal-poc`, then `01 → 03 → 04 → 05 → 06`
+- [X] Watch `examples/04-time-travel/s02_history.py` output until the Delta `_delta_log/` model clicks
+- [X] Run `examples/06-full-etl/s03_incremental.py` end to end and trace how it composes work from modules `01`, `02`, `03`, and `04`
+- [X] Come back to `/learn-this-project-absorb` in **Context-dive mode** whenever a specific spot needs unpacking (e.g. the merge predicate aliasing, the `polars_storage_options` frozen-credentials trick, the mixin composition in `one/one_01_main.py`)
+- [X] Be able to explain WHY `02-polars-etl/` deliberately doesn't touch S3
+- [X] Be able to explain WHY every script begins with `s3dir_example.delete(bsm=bsm)`
+- [X] Be able to explain WHY `AWS_S3_ALLOW_UNSAFE_RENAME="true"` is set in `one/one_03_boto_ses.py` and when it would be wrong
 
 ### Quiz (verify understanding)
 - [ ] Run `/learn-this-project-quiz` in **Bank mode** with `random 10` — clear the floor (no ⚠️ partial / ❌ wrong) against the 3-part standard (where + what + why)
