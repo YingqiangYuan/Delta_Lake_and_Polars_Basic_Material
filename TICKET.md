@@ -27,32 +27,32 @@ Absorb the core patterns of a Spark-free, Lambda-shaped data lake on S3 — Delt
 - [X] Be able to explain WHY `AWS_S3_ALLOW_UNSAFE_RENAME="true"` is set in `one/one_03_boto_ses.py` and when it would be wrong
 
 ### Quiz (verify understanding)
-- [ ] Run `/learn-this-project-quiz` in **Bank mode** with `random 10` — clear the floor (no ⚠️ partial / ❌ wrong) against the 3-part standard (where + what + why)
-- [ ] If anything came up shallow on the `one` singleton, run `module one`; if shallow on merge/time-travel/vacuum, run the matching `module <name>`
-- [ ] Use **Open-ended mode** to drill 2–3 topics you want pressed harder (e.g. `generate 5 harder questions about the merge predicate aliases`, or `generate 5 questions comparing append vs merge`)
-- [ ] If a topic keeps coming up partial, re-read the matching section in `docs/learn-this-project/01-knowhow-inventory.md` or the source file, then re-quiz
+- [X] Run `/learn-this-project-quiz` in **Bank mode** with `random 10` — clear the floor (no ⚠️ partial / ❌ wrong) against the 3-part standard (where + what + why)
+- [X] If anything came up shallow on the `one` singleton, run `module one`; if shallow on merge/time-travel/vacuum, run the matching `module <name>`
+- [X] Use **Open-ended mode** to drill 2–3 topics you want pressed harder (e.g. `generate 5 harder questions about the merge predicate aliases`, or `generate 5 questions comparing append vs merge`)
+- [X] If a topic keeps coming up partial, re-read the matching section in `docs/learn-this-project/01-knowhow-inventory.md` or the source file, then re-quiz
 
 ### Elevate (see what's beyond)
-- [ ] Run `/learn-this-project-elevate` and explore 1–2 upgrade directions — strong candidates for this repo: `testing` (the highest-leverage item — plumbing is in, tests aren't), `prod-safety` (split the demo-vs-prod `polars_storage_options`), or `observability` (add `loguru` so merge-vs-overwrite cost is visible)
-- [ ] **Converge each chosen direction into a concrete starter deliverable** with a file path and a success criterion — e.g. "add `tests/test_examples_02.py` that subprocess-runs the three `02-polars-etl/` scripts and asserts exit 0"
-- [ ] (Optional, high-value) Hand the deliverable to `/learn-this-project-absorb` in **Build mode** and actually build the first iteration
-- [ ] Note down "next small projects" the roadmap surfaced (e.g. a `07-streaming/` module, CI workflow, type checking)
+- [X] Run `/learn-this-project-elevate` and explore 1–2 upgrade directions — strong candidates for this repo: `testing` (the highest-leverage item — plumbing is in, tests aren't), `prod-safety` (split the demo-vs-prod `polars_storage_options`), or `observability` (add `loguru` so merge-vs-overwrite cost is visible)
+- [X] **Converge each chosen direction into a concrete starter deliverable** with a file path and a success criterion — e.g. "add `tests/test_examples_02.py` that subprocess-runs the three `02-polars-etl/` scripts and asserts exit 0"
+- [X] (Optional, high-value) Hand the deliverable to `/learn-this-project-absorb` in **Build mode** and actually build the first iteration
+- [X] Note down "next small projects" the roadmap surfaced (e.g. a `07-streaming/` module, CI workflow, type checking)
 
 ### Interview (pressure-test yourself)
-- [ ] Run `/learn-this-project-interview`, calibrate the role + format + time, complete a full mock session
-- [ ] Survive at least one pushback per question on Rounds 1–3 (what you have / what you'd elevate / alternatives considered)
-- [ ] Review the debrief; for the 3 weak-spot questions, return to quiz / absorb and re-cover the gap
+- [X] Run `/learn-this-project-interview`, calibrate the role + format + time, complete a full mock session
+- [X] Survive at least one pushback per question on Rounds 1–3 (what you have / what you'd elevate / alternatives considered)
+- [X] Review the debrief; for the 3 weak-spot questions, return to quiz / absorb and re-cover the gap
 
 ### Demo (learn to present)
-- [ ] Run `/learn-this-project-demo`, rehearse at least the 5-minute version
-- [ ] Lock the 5-minute golden path: `examples/README.md` → `04-time-travel/s02_history.py` → `06-full-etl/s03_incremental.py` → close on the Polars-vs-Spark tradeoff
-- [ ] Walk through the cardinal-rule "do NOT show" list — confirm you know how to keep `README.md`, `README-cn.md`, `TICKET.md`, `docs/learn-this-project/`, and the six sibling skills off the screen during the demo
+- [X] Run `/learn-this-project-demo`, rehearse at least the 5-minute version
+- [X] Lock the 5-minute golden path: `examples/README.md` → `04-time-travel/s02_history.py` → `06-full-etl/s03_incremental.py` → close on the Polars-vs-Spark tradeoff
+- [X] Walk through the cardinal-rule "do NOT show" list — confirm you know how to keep `README.md`, `README-cn.md`, `TICKET.md`, `docs/learn-this-project/`, and the six sibling skills off the screen during the demo
 
 ### Mastery Gate
-- [ ] You can answer ~70% of quiz questions to the 3-part standard (where + what + why), not just factually
-- [ ] You can survive at least one pushback round per interview question
-- [ ] You have a clear list of "what I'd study next" from the elevate session, including at least one concrete starter deliverable
-- [ ] You can deliver the demo without notes, without exposing any cardinal artifact
+- [X] You can answer ~70% of quiz questions to the 3-part standard (where + what + why), not just factually
+- [X] You can survive at least one pushback round per interview question
+- [X] You have a clear list of "what I'd study next" from the elevate session, including at least one concrete starter deliverable
+- [X] You can deliver the demo without notes, without exposing any cardinal artifact
 
 ### Publish (turn it into a portfolio artifact)
 - [ ] Decide on a new public repo name (pattern: `<firstname>-<lastname>-delta-lake-polars-poc` or similar)
